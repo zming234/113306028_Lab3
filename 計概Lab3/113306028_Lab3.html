@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab3_Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #result {
+            margin-top: 20px;
+        }
+        img {
+            max-width: 300px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>113356007_Lab3_Number Guessing Game</h1>
+    <div id="result"></div>
+
+    <script>
+        // 生成 1~100 的隨機數
+        const targetNumber = Math.floor(Math.random() * 100) + 1;
+        let attemptsLeft = 7;
+        let guess;
+
+        while (attemptsLeft > 0) {
+            guess = window.prompt(`猜一個數字（1~100）。剩餘次數：${attemptsLeft}`);
+
+            // 檢查是否為空值或非數字
+            if (!guess || isNaN(guess)) {
+                alert("請輸入有效的數字！");
+                continue;
+            }
+
+            // 將輸入轉為整數
+            guess = parseInt(guess);
+
+            // 檢查是否在範圍內
+            if (guess < 1 || guess > 100) {
+                alert("請輸入範圍內的數字（1~100）！");
+                continue;
+            }
+
+            attemptsLeft--;
+
+            if (guess === targetNumber) {
+                alert("恭喜你，答對了！");
+                document.getElementById("result").innerHTML = `<img src="correct.jpg" alt="正確">`;
+                break;
+            } else if (guess < targetNumber) {
+                alert("太小了！");
+            } else {
+                alert("太大了！");
+            }
+        }
+
+        if (attemptsLeft === 0 && guess !== targetNumber) {
+            alert(`遊戲結束！正確答案是：${targetNumber}`);
+            document.getElementById("result").innerHTML = `<img src="correct.jpg" alt="錯誤">`;
+        }
+    </script>
+</body>
+</html>
